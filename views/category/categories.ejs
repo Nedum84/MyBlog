@@ -1,0 +1,45 @@
+<html>
+    <%- include('../partials/header.ejs') %>
+    <body>
+        <%- include('../partials/nav.ejs') %>
+
+        <h1>Categories</h1>
+
+        <br>
+        <%  if(category.length>0){  %>
+            <% category.forEach(cat=>{ %>
+                <h4><%= cat.category_name %> 
+                    <button class="delete" data-id="<%= cat._id %>">Del</button>
+                </h4>
+                
+            <% }); %>
+        <% }else{ %>
+            <h4>
+                No Added Category at the moment...
+            </h4>
+        <% } %>
+
+
+        <%- include('../partials/footer.ejs') %>
+
+        <script>
+            const trashcan = document.querySelectorAll('button.delete');
+        
+            trashcan.forEach(element => {
+
+                element.addEventListener('click', (e) => {
+                const endpoint = `/category/${element.dataset.id}`;
+            
+
+                fetch(endpoint, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+                });
+            });
+            
+          </script>
+    </body>
+</html>

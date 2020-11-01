@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 const path = require('path');
 
 const app = express();
@@ -87,6 +88,9 @@ app.get('/about-us', (req, res)=>{
 
 // user routes
 app.use('/user', userRoutes);
+
+// category routes
+app.use('/category', categoryRoutes);
 
 
 
