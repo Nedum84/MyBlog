@@ -31,10 +31,9 @@
             <button id="submit">Add Blog</button>
         </form>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <%- include('../partials/footer.ejs') %>
         <script>
             $(document).ready(function(){
-
 
                 $(document).on('click', '#submit',()=>{
                     var title = $('input[name=title]').val();

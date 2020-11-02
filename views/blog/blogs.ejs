@@ -11,10 +11,21 @@
 
         <br>
         <%  if(blogs.length>0){  %>
-            <% blogs.forEach(blog=>{ %>
-                <h2> <%= blog.title %></h2>
-                <h3>Category: <%= blog.category %> </h3>
+            <% blogs.forEach(blog=>{
+                var result = category.filter(function(e) {
+                    return e._id == blog.category;
+                  })[0];
+
+                  if(typeof result == 'undefined')
+                    cur_cat = 'unavailable'
+                  else
+                    cur_cat = result['category_name']
+
+                %>
+                <h2> <a href="/blog/<%= blog._id %>"><%= blog.title %></a></h2>
+                <h3>Category: <%= cur_cat %> </h3>
                 <p> <%= blog.body %></p>
+                <button class="delete" data-id="<%= blog._id %>">Del</button>
             <% }); %>
         <% }else{ %>
             <h4>
@@ -24,5 +35,27 @@
 
 
         <%- include('../partials/footer.ejs') %>
+
+        
+
+        <script>
+            $(document).on('click', '.delete',function(){
+                var blog_id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: '/blog/'+blog_id,
+                    type: 'DELETE',
+                    // data: {id:blog_id}, 
+                    // contentType:'application/json',  // <---add this
+                    // dataType: 'text',                // <---update this
+                    success: function(result) {
+                        if(result.success){
+                            window.location.reload(true);
+                        }
+                    },
+                    error: function(err){console.log(err)}
+                });
+            })
+        </script>
     </body>
 </html>

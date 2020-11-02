@@ -2,13 +2,19 @@ const Blog = require('../models/blogModel');
 const Category = require('../models/categoryModel');//for category selection
 
 const fetch_all = (req, res) => {
-  
-  Blog.find().sort({ createdAt: -1 })
-    .then(result => {
-      res.render('blog/blogs', { blogs: result, title: 'All blogs' });
+  Category.find()//fetch Categories
+    .then(cat_result => {
+      //Fetch blogs
+      Blog.find().sort({ createdAt: -1 })
+        .then(result => {
+          res.render('blog/blogs', { blogs: result, title: 'All blogs', category: cat_result});
+        }).catch(err => {
+          console.log(err);
+        });
     }).catch(err => {
       console.log(err);
     });
+  
 }
 
 const single_blog_details = (req, res) => {
@@ -26,8 +32,7 @@ const goto_add_blog = (req, res) => {
   Category.find()
     .then(result => {
       res.render('blog/add-blog', { title: 'Create a new blog', category:result });
-    })
-    .catch(err => {
+    }).catch(err => {
       console.log(err);
     });
 }
@@ -48,7 +53,7 @@ const delete_blog = (req, res) => {
   const id = req.params.id;
   Blog.findByIdAndDelete(id)
     .then(result => {
-      res.json({ redirect: '/blogs' });
+      res.send({success: true});
     }).catch(err => {
       console.log(err);
     });
