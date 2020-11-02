@@ -21,8 +21,15 @@ const single_blog_details = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then(result => {
-      res.render('blog/details', { blog: result, title: 'Blog Details' });
-    }).catch(err => {
+
+        Category.findById(result.category).then(category => {
+          res.render('blog/details', { blog: result, title: 'Blog Details' , category:category});
+        }).catch(err => {
+          console.log(err);
+          res.render('blog/details', { blog: result, title: 'Blog Details' });
+        });
+
+      }).catch(err => {
       console.log(err);
       res.render('404', { title: 'Blog not found' });
     });

@@ -48,7 +48,7 @@ const user_delete = (req, res) => {
   const id = req.params.id;
   User.findByIdAndDelete(id)
     .then(result => {
-      res.json({ redirect: '/user/users' });
+      res.send({ success: true });
     })
     .catch(err => {
       console.log(err);

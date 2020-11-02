@@ -42,19 +42,21 @@
             $(document).on('click', '.delete',function(){
                 var blog_id = $(this).attr('data-id');
 
-                $.ajax({
-                    url: '/blog/'+blog_id,
-                    type: 'DELETE',
-                    // data: {id:blog_id}, 
-                    // contentType:'application/json',  // <---add this
-                    // dataType: 'text',                // <---update this
-                    success: function(result) {
-                        if(result.success){
-                            window.location.reload(true);
-                        }
-                    },
-                    error: function(err){console.log(err)}
-                });
+                if(confirm('Delete this Post?')){
+                    $.ajax({
+                        url: '/blog/'+blog_id,
+                        type: 'DELETE',
+                        // data: {id:blog_id}, 
+                        // contentType:'application/json',  // <---add this
+                        // dataType: 'text',                // <---update this
+                        success: function(result) {
+                            if(result.success){
+                                window.location.reload(true);
+                            }
+                        },
+                        error: function(err){console.log(err)}
+                    });
+                }
             })
         </script>
     </body>

@@ -1,0 +1,46 @@
+<html>
+    <%- include('../partials/header.ejs') %>
+    <body>
+        <%- include('../partials/nav.ejs') %>
+
+        <h1>Welcome to Nelly Blog</h1>
+
+        <br>
+
+        <%
+        if(!hasOwnProperty("category"))
+          cur_cat = 'unavailable'
+        else
+          cur_cat = category['category_name']
+          
+        %>
+        <h2> <%= blog.title %></h2>
+        <h3>Category: <%= cur_cat %> </h3>
+        <p> <%= blog.body %></p>
+        <button class="delete" data-id="<%= blog._id %>">Del</button>
+
+
+        <%- include('../partials/footer.ejs') %>
+
+        
+
+        <script>
+            $(document).on('click', '.delete',function(){
+                var blog_id = $(this).attr('data-id');
+
+                if(confirm('Delete this Post?')){
+                    $.ajax({
+                        url: '/blog/'+blog_id,
+                        type: 'DELETE',
+                        success: function(result) {
+                            if(result.success){
+                                window.location.href = '/blog';
+                            }
+                        },
+                        error: function(err){console.log(err)}
+                    });
+                }
+            })
+        </script>
+    </body>
+</html>

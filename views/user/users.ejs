@@ -14,6 +14,7 @@
                 <h3>Age: <%= user.age %> </h3>
                 <h4>Height: <%= user.height %> </h4>
                 <p> <%= user.desc %></p>
+                <button class="delete" data-id="<%= user._id %>">Del</button>
             <% }); %>
         <% }else{ %>
             <h4>
@@ -23,5 +24,28 @@
 
 
         <%- include('../partials/footer.ejs') %>
+
+        
+        <script>
+            $(document).on('click', '.delete',function(){
+                var user_id = $(this).attr('data-id');
+
+                if(confirm('Remove User?')){
+                    $.ajax({
+                        url: '/user/'+user_id,
+                        type: 'DELETE',
+                        // data: {id:user_id}, 
+                        // contentType:'application/json',  // <---add this
+                        // dataType: 'text',                // <---update this
+                        success: function(result) {
+                            if(result.success){
+                                window.location.reload(true);
+                            }
+                        },
+                        error: function(err){console.log(err)}
+                    });
+                }
+            })
+        </script>
     </body>
 </html>
