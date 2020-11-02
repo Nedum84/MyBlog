@@ -10,8 +10,20 @@
             <input type="text" name="title" placeholder="Content title"><br>
             <select name="category" >
                 <option value="-1">Select Category</option>
-            </select>
-            <textarea name="body"  cols="30" rows="10" placeholder="Write your body here..."></textarea>
+
+                <%  if(category.length>0){  
+
+                    category.forEach(cat=>{ %>
+
+                        <option value="<%= cat._id %>"><%= cat.category_name  %></option>
+                        
+                        <%
+                    })
+                }
+                %>
+
+            </select><br>
+            <textarea name="body"  cols="30" rows="10" placeholder="Write your body here..."></textarea><br>
             <span id="errorStatus" style="color:red">
                 
             </span><br>
@@ -28,6 +40,7 @@
                     var title = $('input[name=title]').val();
                     var body = $('textarea[name=body]').val();
                     var category = $('select[name=category]').val();
+                    // var category = $('select[name=category] option').filter(":selected").val();
                     if(title==""){
                         showError('Enter the title');
                     }else if(category=="-1"){
@@ -37,9 +50,13 @@
                     }else{
                         $.post(
                             '/blog/add',
-                            {category:'cat', title:'title', body:'body'},
+                            {category:category, title:title, body:body},
                             function(data){
-                                alert(data)
+                                if(data.success){
+                                    window.location.href = '/blog/'
+                                }else{
+                                    console.log("fff")
+                                }
                             }
                         )
                     }

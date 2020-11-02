@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const blogRoutes = require('./routes/blogRoutes');
 const path = require('path');
 
 const app = express();
@@ -91,6 +92,9 @@ app.use('/user', userRoutes);
 
 // category routes
 app.use('/category', categoryRoutes);
+
+// category routes
+app.use('/blog', blogRoutes);
 
 
 

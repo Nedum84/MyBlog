@@ -1,7 +1,7 @@
 <html>
-    <%- include('./partials/header.ejs') %>
+    <%- include('../partials/header.ejs') %>
     <body>
-        <%- include('./partials/nav.ejs') %>
+        <%- include('../partials/nav.ejs') %>
 
         <%
         const name = 'Index Page ooo';
@@ -10,20 +10,19 @@
         <p><%= name %></p>
 
         <br>
-        <%  if(users.length>0){  %>
-            <% users.forEach(user=>{ %>
-                <h2> <%= user.name %></h2>
-                <h3>Age: <%= user.age %> </h3>
-                <h4>Height: <%= user.height %> </h4>
-                <p> <%= user.desc %></p>
+        <%  if(blogs.length>0){  %>
+            <% blogs.forEach(blog=>{ %>
+                <h2> <%= blog.title %></h2>
+                <h3>Category: <%= blog.category %> </h3>
+                <p> <%= blog.body %></p>
             <% }); %>
         <% }else{ %>
             <h4>
-                No Registered User at the moment...
+                No  blog at the moment...
             </h4>
         <% } %>
 
 
-        <%- include('partials/footer.ejs') %>
+        <%- include('../partials/footer.ejs') %>
     </body>
 </html>

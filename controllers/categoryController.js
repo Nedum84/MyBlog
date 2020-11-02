@@ -1,7 +1,7 @@
 const Category = require('../models/categoryModel');
 
 
-const fetch_all = (req, res) => {
+const fetch_all = (req, res) => { 
     Category.find()
     .then(result => {
       res.render('category/categories', { category: result, title: 'All Categories' });

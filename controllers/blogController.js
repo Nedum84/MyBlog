@@ -1,57 +1,63 @@
 const Blog = require('../models/blogModel');
+const Category = require('../models/categoryModel');//for category selection
 
-const blog_index = (req, res) => {
+const fetch_all = (req, res) => {
+  
   Blog.find().sort({ createdAt: -1 })
     .then(result => {
-      res.render('index', { blogs: result, title: 'All blogs' });
-    })
-    .catch(err => {
+      res.render('blog/blogs', { blogs: result, title: 'All blogs' });
+    }).catch(err => {
       console.log(err);
     });
 }
 
-const blog_details = (req, res) => {
+const single_blog_details = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then(result => {
-      res.render('details', { blog: result, title: 'Blog Details' });
-    })
-    .catch(err => {
+      res.render('blog/details', { blog: result, title: 'Blog Details' });
+    }).catch(err => {
       console.log(err);
       res.render('404', { title: 'Blog not found' });
     });
 }
 
-const blog_create_get = (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-}
-
-const blog_create_post = (req, res) => {
-  const blog = new Blog(req.body);
-  blog.save()
+const goto_add_blog = (req, res) => {
+  Category.find()
     .then(result => {
-      res.redirect('/blogs');
+      res.render('blog/add-blog', { title: 'Create a new blog', category:result });
     })
     .catch(err => {
       console.log(err);
     });
 }
 
-const blog_delete = (req, res) => {
+const submit_blog = (req, res) => {
+  const blog = new Blog(req.body);
+  blog.save()
+    .then(result => {
+      // res.redirect('/blog');
+      res.send({success:true});
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+const delete_blog = (req, res) => {
   const id = req.params.id;
   Blog.findByIdAndDelete(id)
     .then(result => {
       res.json({ redirect: '/blogs' });
-    })
-    .catch(err => {
+    }).catch(err => {
       console.log(err);
     });
 }
 
 module.exports = {
-  blog_index, 
-  blog_details, 
-  blog_create_get, 
-  blog_create_post, 
-  blog_delete
+  fetch_all, 
+  single_blog_details, 
+  goto_add_blog, 
+  submit_blog, 
+  delete_blog
 }
