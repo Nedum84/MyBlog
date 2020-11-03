@@ -1,27 +1,32 @@
 <html>
     <%- include('../partials/header.ejs') %>
     <body>
-        <%- include('../partials/nav.ejs') %>
+        <div class="container">
+            <%- include('../partials/nav.ejs') %>
+    
+            <h1>Categories</h1>
+    
+            <br>
+            <%  if(category.length>0){  %>
+                <% category.forEach(cat=>{ %>
+                    <div class="item">
 
-        <h1>Categories</h1>
-
-        <br>
-        <%  if(category.length>0){  %>
-            <% category.forEach(cat=>{ %>
-                <h4><%= cat.category_name %> 
-                    <button class="delete" data-id="<%= cat._id %>">Del</button>
+                        <h4><%= cat.category_name %> 
+                            <button style="float: right;box-shadow: 0px 0px 2px 2px rgba(48, 48, 61,.5);" class="delete" data-id="<%= cat._id %>">Del</button>
+                        </h4>
+                    </div>
+                    
+                <% }); %>
+            <% }else{ %>
+                <h4>
+                    No Added Category at the moment...
                 </h4>
-                
-            <% }); %>
-        <% }else{ %>
-            <h4>
-                No Added Category at the moment...
-            </h4>
-        <% } %>
-
-
-        <%- include('../partials/footer.ejs') %>
-
+            <% } %>
+    
+    
+            <%- include('../partials/footer.ejs') %>
+    
+        </div>
         <script>
             const trashcan = document.querySelectorAll('button.delete');
         

@@ -1,30 +1,31 @@
 <html>
     <%- include('../partials/header.ejs') %>
     <body>
-        <%- include('../partials/nav.ejs') %>
+        <div class="container">
+            <%- include('../partials/nav.ejs') %>
+    
+             
+            <h1>Registered Users</h1>
 
-        
-        <h1>Welcome to Nelly Blog</h1>
-        <h2>Users</h2>
-
-        <br>
-        <%  if(users.length>0){  %>
-            <% users.forEach(user=>{ %>
-                <h2> <%= user.name %></h2>
-                <h3>Age: <%= user.age %> </h3>
-                <h4>Height: <%= user.height %> </h4>
-                <p> <%= user.desc %></p>
-                <button class="delete" data-id="<%= user._id %>">Del</button>
-            <% }); %>
-        <% }else{ %>
-            <h4>
-                No Registered User at the moment...
-            </h4>
-        <% } %>
-
-
-        <%- include('../partials/footer.ejs') %>
-
+            <%  if(users.length>0){  %>
+                    <% users.forEach(user=>{ %>
+                        <div class="item">
+                            <h2> <%= user.name %></h2>
+                            <h3>Age: <%= user.age %> </h3>
+                            <p> <%= user.desc %></p>
+                            <button class="delete" data-id="<%= user._id %>">Del</button>
+                        </div>
+                    <% }); %>
+            <% }else{ %>
+                <h4>
+                    No Registered User at the moment...
+                </h4>
+            <% } %>
+    
+    
+            <%- include('../partials/footer.ejs') %>
+    
+        </div>
         
         <script>
             $(document).on('click', '.delete',function(){

@@ -1,42 +1,42 @@
 <html>
     <%- include('../partials/header.ejs') %>
     <body>
-        <%- include('../partials/nav.ejs') %>
-
-        <%
-        const name = 'Index Page ooo';
-        %>
-        <h1>Welcome to Nelly Blog</h1>
-        <p><%= name %></p>
-
-        <br>
-        <%  if(blogs.length>0){  %>
-            <% blogs.forEach(blog=>{
-                var result = category.filter(function(e) {
-                    return e._id == blog.category;
-                  })[0];
-
-                  if(typeof result == 'undefined')
-                    cur_cat = 'unavailable'
-                  else
-                    cur_cat = result['category_name']
-
-                %>
-                <h2> <a href="/blog/<%= blog._id %>"><%= blog.title %></a></h2>
-                <h3>Category: <%= cur_cat %> </h3>
-                <p> <%= blog.body %></p>
-                <button class="delete" data-id="<%= blog._id %>">Del</button>
-            <% }); %>
-        <% }else{ %>
-            <h4>
-                No  blog at the moment...
-            </h4>
-        <% } %>
-
-
-        <%- include('../partials/footer.ejs') %>
-
-        
+        <div class="container">
+            <%- include('../partials/nav.ejs') %>
+    
+            <h1>Welcome to Nelly Blog</h1>
+    
+            <br>
+            <%  if(blogs.length>0){  %>
+                <% blogs.forEach(blog=>{
+                    var result = category.filter(function(e) {
+                        return e._id == blog.category;
+                      })[0];
+    
+                      if(typeof result == 'undefined')
+                        cur_cat = 'unavailable'
+                      else
+                        cur_cat = result['category_name']
+    
+                    %>
+                    <div class="item">
+                        <h2> <a href="/blog/<%= blog._id %>"><%= blog.title %></a></h2>
+                        <h3>Category: <%= cur_cat %> </h3>
+                        <p> <%= blog.body %></p>
+                        <button class="delete" data-id="<%= blog._id %>">Del</button>
+                    </div>
+                <% }); %>
+            <% }else{ %>
+                <h4>
+                    No  blog at the moment...
+                </h4>
+            <% } %>
+    
+    
+            <%- include('../partials/footer.ejs') %>
+    
+            
+        </div>
 
         <script>
             $(document).on('click', '.delete',function(){

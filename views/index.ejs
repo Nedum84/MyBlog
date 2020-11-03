@@ -1,29 +1,49 @@
 <html>
     <%- include('./partials/header.ejs') %>
     <body>
-        <%- include('./partials/nav.ejs') %>
 
-        <%
-        const name = 'Index Page ooo';
-        %>
-        <h1>Welcome to Nelly Blog</h1>
-        <p><%= name %></p>
+        <div class="container">
+            <%- include('./partials/nav.ejs') %>
+    
+            <%
+            const name = 'Welcome to Nelly Blog';
+            %>
+            <h1><%= name %></h1>
+    
+            <p>
+                This is a mini blog that's built with NODE JS with Mongo DB Database. <br>
+              </p>
+              <p>
+                To add a new blog, hit <a href="/blog/add">here</a>  <br>
+              </p>
+              <p>
+                To add a new user, hit <a href="/user/add-user">here</a>  <br>
+              </p>
+              <p>
+                For Source code, hit <a href="https://github.com/Nedum84/MyBlog">here</a>  <br>
+              </p>
 
-        <br>
-        <%  if(users.length>0){  %>
-            <% users.forEach(user=>{ %>
-                <h2> <%= user.name %></h2>
-                <h3>Age: <%= user.age %> </h3>
-                <h4>Height: <%= user.height %> </h4>
-                <p> <%= user.desc %></p>
-            <% }); %>
-        <% }else{ %>
-            <h4>
-                No Registered User at the moment...
-            </h4>
-        <% } %>
-
-
-        <%- include('partials/footer.ejs') %>
+            <br>
+            <br>
+            <br>
+            <h1>Sample Static Users...</h1>
+            <%  if(users.length>0){  %>
+                <% users.forEach(user=>{ %>
+                    <div class="item" style="box-shadow: 0px 0px 2px 2px rgba(48, 48, 61,.5);border: none;">
+                        <h2> <%= user.name %></h2>
+                        <h3>Age: <%= user.age %> </h3>
+                        <h4>Height: <%= user.height %> </h4>
+                        <p> <%= user.desc %></p>
+                    </div>
+                <% }); %>
+            <% }else{ %>
+                <h4>
+                    No Registered User at the moment...
+                </h4>
+            <% } %>
+    
+    
+            <%- include('partials/footer.ejs') %>
+        </div>
     </body>
 </html>
